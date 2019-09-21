@@ -27,11 +27,11 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/resources/**").permitAll()
-                .antMatchers("/forum/**").hasRole(ROLE_PHILOSOPHER)
-                .antMatchers("/stoa/**").hasRole(ROLE_STOIC)
-                .antMatchers("/academy/**").hasRole(ROLE_ACADEMIC)
+//                .antMatchers("/forum/**").hasRole(ROLE_PHILOSOPHER)
+//                .antMatchers("/stoa/**").hasRole(ROLE_STOIC)
+//                .antMatchers("/academy/**").hasRole(ROLE_ACADEMIC)
                 .and()
                 .formLogin()
                     .loginPage("/login")
