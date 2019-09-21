@@ -16,21 +16,24 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
         User.UserBuilder users = User.withDefaultPasswordEncoder();
         auth.inMemoryAuthentication()
                 .withUser(users.username("socrates").password("s3cure").roles("PHILOSOPHER"))
-                .withUser(users.username("plato").password("s3cure").roles("ACADEMIC"))
-                .withUser(users.username("zeno").password("s3cure").roles("STOIC"));
+                .withUser(users.username("plato").password("s3cure").roles("PHILOSOPHER", "ACADEMIC"))
+                .withUser(users.username("zeno").password("s3cure").roles("PHILOSOPHER", "STOIC"));
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/resources/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/internal/**").authenticated()
                 .and()
                 .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/authenticate")
                     .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                    .logoutSuccessUrl("/?logout")
+                    .permitAll();
     }
 }
