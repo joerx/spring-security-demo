@@ -11,13 +11,17 @@ import org.springframework.security.core.userdetails.User;
 @EnableWebSecurity
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String ROLE_PHILOSOPHER = "PHILOSOPHER";
+    private static final String ROLE_STOIC = "STOIC";
+    private static final String ROLE_ACADEMIC = "ACADEMIC";
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         User.UserBuilder users = User.withDefaultPasswordEncoder();
         auth.inMemoryAuthentication()
-                .withUser(users.username("socrates").password("s3cure").roles("PHILOSOPHER"))
-                .withUser(users.username("plato").password("s3cure").roles("PHILOSOPHER", "ACADEMIC"))
-                .withUser(users.username("zeno").password("s3cure").roles("PHILOSOPHER", "STOIC"));
+                .withUser(users.username("socrates").password("s3cure").roles(ROLE_PHILOSOPHER))
+                .withUser(users.username("plato").password("s3cure").roles(ROLE_PHILOSOPHER, ROLE_ACADEMIC))
+                .withUser(users.username("zeno").password("s3cure").roles(ROLE_PHILOSOPHER, ROLE_STOIC));
     }
 
     @Override
@@ -25,7 +29,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/resources/**").permitAll()
-                .antMatchers("/internal/**").authenticated()
+                .antMatchers("/forum/**").hasRole(ROLE_PHILOSOPHER)
+                .antMatchers("/stoa/**").hasRole(ROLE_STOIC)
+                .antMatchers("/academy/**").hasRole(ROLE_ACADEMIC)
                 .and()
                 .formLogin()
                     .loginPage("/login")
@@ -34,6 +40,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                     .logoutSuccessUrl("/?logout")
-                    .permitAll();
+                    .permitAll()
+                .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/access-denied");
     }
 }

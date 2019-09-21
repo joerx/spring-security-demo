@@ -6,16 +6,23 @@
 
 <html>
 <head>
-    <title>Yodo.io Public Landing Page</title>
+    <jsp:include page="fragments/header.jsp" />
+
+    <title>Home Page</title>
 </head>
 <body>
-    <c:if test="${param.logout != null}">
-        <p class="alert alert-success">You have been logged out.</p>
-    </c:if>
-    <h1>Yodo.io Public Landing Page</h1>
-    <p>Please login to enjoy our awesome features!</p>
-    <p>
-        <a href="${pageContext.request.contextPath}/internal">Internal stuff</a>
-    </p>
+    <main id="main" class="container">
+        <c:if test="${param.logout != null}">
+            <p class="alert alert-success">You have been logged out.</p>
+        </c:if>
+
+        <h1>Yodo.io Public Home Page</h1>
+
+        <p>Please login to enjoy our awesome features!</p>
+
+        <p>
+            <a href="${pageContext.request.contextPath}/forum">Internal stuff</a>
+        </p>
+    </main>
 </body>
 </html>
