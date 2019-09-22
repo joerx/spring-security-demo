@@ -1,17 +1,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-<head>
-    <jsp:include page="fragments/header.jsp" />
+<t:layout pageTitle="Login">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css"/>
-
-    <title>Login</title>
-</head>
-<body>
     <main id="main" class="container">
 
             <form:form action="${pageContext.request.contextPath}/authenticate" method="POST" cssClass="login-form">
@@ -37,5 +31,5 @@
             </form:form>
 
     </main>
-</body>
-</html>
+
+</t:layout>

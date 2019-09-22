@@ -11,15 +11,15 @@
         <h1>The PragPhil Members Area</h1>
 
         <p>
-<%--            Role(s): <security:authentication property="principal.authorities"/>--%>
+            Role(s): <security:authentication property="principal.authorities"/>
         </p>
         <ul>
-<%--            <security:authorize access="hasRole('ACADEMIC')">--%>
+            <security:authorize access="hasRole('ACADEMIC')">
             <li><a href="${pageContext.request.contextPath}/academy">To the Academy</a></li>
-<%--            </security:authorize>--%>
-<%--            <security:authorize access="hasRole('STOIC')">--%>
+            </security:authorize>
+            <security:authorize access="hasRole('STOIC')">
             <li><a href="${pageContext.request.contextPath}/stoa">To the Stoa</a></li>
-<%--            </security:authorize>--%>
+            </security:authorize>
         </ul>
     </main>
 
